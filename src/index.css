@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input:focus ~ label,
+input:not(:placeholder-shown) ~ label {
+
+    z-index:1
+};

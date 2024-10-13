@@ -1,0 +1,79 @@
+import { useEffect, useState } from "react";
+import { TCard } from "../../Types/TCard";
+import { Card, Pagination } from "flowbite-react";
+import { FaHeart, FaPhoneAlt } from "react-icons/fa";
+import UseCards from "../../Hooks/UseCards";
+// import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+
+const Home = () => {
+    const { searchCards, isLikedCard, navToCard, getData, likeUnlikeCard, user } = UseCards();
+    const [currentPage, setCurrentPage] = useState(1);
+    const cardsPerPage = 6;  // מספר הכרטיסים בדף
+    const onPageChange = (page: number) => setCurrentPage(page);
+
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    // חישוב הכרטיסים שמוצגים בעמוד הנוכחי
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    const currentCards = searchCards().slice(indexOfFirstCard, indexOfLastCard);
+    const totalPages = Math.ceil(searchCards().length / cardsPerPage);
+
+    return (
+        <>
+            <section className="flex flex-col items-center bg-gray-200 dark:bg-gray-700">
+                <h1 style={{ fontSize: "3rem" }}> Cards Page </h1>
+                <p style={{ fontSize: "1.5rem" }} className="items-center" >Here you can find business cards from all categories</p>
+            </section>
+
+            <div className="flex flex-col items-center justify-start gap-2 dark:bg-gray-800">
+
+                <div className="flex flex-wrap items-center gap-10 p-5 m-auto max-md:gap-3 md:w-4/5 max-md:flex-col">
+                    {currentCards.map((item: TCard) => {
+                        return (
+                            <Card key={item._id} className="m-auto max-md:w-[300px] h-[500px] overflow-hidden  w-[300px] bg-gray-200 dark:text-white dark:bg-gray-700">
+                                <img className="object-fill w-[250px] h-[200px]" src={item.image.url} alt={item.image.alt}
+                                    onClick={() => navToCard(item._id)}
+                                />
+                                <h1>{item.title}</h1>
+                                <h3>{item.subtitle}</h3>
+                                <div className="max-h-[100px] h-[100px] overflow-hidden">
+                                    <p>{item.description}</p>
+                                </div>
+                                <hr />
+
+                                <div className="flex">
+                                    <div className="flex gap-10 m-auto dark:text-black">
+                                        <a href={`tel:${item.phone}`}>
+                                            <FaPhoneAlt className="m-auto cursor-pointer size-5" />
+                                        </a>
+
+                                        {user && user.user &&
+                                            <FaHeart
+                                                size={20}
+                                                className="m-auto cursor-pointer"
+                                                color={isLikedCard(item) ? "red" : "black"}
+                                                onClick={() => likeUnlikeCard(item)}
+                                            />}
+                                    </div>
+                                </div>
+                            </Card>
+                        )
+                    })}
+                </div>
+                <Pagination className="mb-5"
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={onPageChange}
+                    showIcons
+                />
+            </div>
+        </>
+    );
+};
+
+export default Home;
