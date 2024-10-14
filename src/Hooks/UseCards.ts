@@ -7,6 +7,7 @@ import { TRootState } from "../Store/BigPie";
 import { TCard } from "../Types/TCard";
 
 const UseCards = () => {
+
     const [cards, setCards] = useState<TCard[]>([]);
     const nav = useNavigate();
     const searchWord = useSelector((state: TRootState) => state.SearchSlice.search);
@@ -116,7 +117,9 @@ const UseCards = () => {
                 });
             }
             setCards(newCards);
+
         };
+
     };
 
     const user = useSelector((state: TRootState) => state.UserSlice);

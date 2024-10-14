@@ -1,27 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { TCard } from "../../Types/TCard";
 import { Card, Pagination } from "flowbite-react";
 import { FaHeart, FaPhoneAlt } from "react-icons/fa";
 import UseCards from "../../Hooks/UseCards";
+import UsePagination from "../../Hooks/UsePagination";
 // import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 
 const Home = () => {
-    const { searchCards, isLikedCard, navToCard, getData, likeUnlikeCard, user } = UseCards();
-    const [currentPage, setCurrentPage] = useState(1);
-    const cardsPerPage = 6;  // מספר הכרטיסים בדף
-    const onPageChange = (page: number) => setCurrentPage(page);
-
+    const { isLikedCard, navToCard, getData, likeUnlikeCard, user, searchCards } = UseCards();
+    const { onPageChange, currentCards, totalPages, currentPage } = UsePagination(searchCards)
 
     useEffect(() => {
         getData();
     }, []);
-
-    // חישוב הכרטיסים שמוצגים בעמוד הנוכחי
-    const indexOfLastCard = currentPage * cardsPerPage;
-    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    const currentCards = searchCards().slice(indexOfFirstCard, indexOfLastCard);
-    const totalPages = Math.ceil(searchCards().length / cardsPerPage);
 
     return (
         <>

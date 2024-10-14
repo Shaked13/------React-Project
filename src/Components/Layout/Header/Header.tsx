@@ -84,7 +84,6 @@ const Header = () => {
                 <span className="self-center text-xl font-semibold text-white whitespace-nowrap">
                     Shaked
                 </span>
-                {/* </Navbar.Brand> */}
             </Navbar.Brand>
             <Navbar.Toggle />
 
@@ -168,11 +167,9 @@ const Header = () => {
                     className="text-white cursor-pointer"
                     onClick={SignOut}
                 >
-
                     Sign Out
                 </Navbar.Link>
                 )}
-
             </Navbar.Collapse>
 
             <div className="flex mr-15">
