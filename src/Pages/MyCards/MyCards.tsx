@@ -1,16 +1,19 @@
 import { FaHeart, FaPhoneAlt } from "react-icons/fa";
-import { Card } from "flowbite-react";
+import { Card, Pagination } from "flowbite-react";
 import { useEffect } from "react";
 import { TCard } from "../../Types/TCard";
 import { useNavigate } from "react-router-dom";
 import { PiPlus } from "react-icons/pi";
 import { BsPencilSquare, BsTrash3Fill } from "react-icons/bs";
 import UseCards from "../../Hooks/UseCards";
+import UsePagination from "../../Hooks/UsePagination";
 
 
 const Cards = () => {
 
     const { searchCards, isLikedCard, navToCard, likeUnlikeCard, user, getMyCardsData, deleteCard } = UseCards();
+
+    const { onPageChange, currentCards, totalPages, currentPage } = UsePagination(searchCards);
 
     const nav = useNavigate();
 
@@ -31,7 +34,7 @@ const Cards = () => {
             <div className="flex flex-col items-center justify-start gap-2 dark:bg-gray-800">
 
                 <div className="flex flex-wrap items-center justify-center gap-10 p-5 m-auto bg-grey-800 max-md:flex-col max-md:gap-3 md:w-4/5">
-                    {searchCards()!.map((item: TCard) => {
+                    {currentCards.map((item: TCard) => {
                         return (
                             <Card key={item._id}
                                 className=" bg-gray-200 dark:text-white dark:bg-gray-700 h-[500px] w-[300px] text-center" >
@@ -89,6 +92,12 @@ const Cards = () => {
                         <PiPlus size={20} onClick={navToCreate} />
                     </div>
                 </div>
+                <Pagination className="mb-5"
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={onPageChange}
+                    showIcons
+                />
             </div >
         </>
     )

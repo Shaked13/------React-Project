@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { TCard } from "../../Types/TCard";
-import { Card } from "flowbite-react";
+import { Card, Pagination } from "flowbite-react";
 import { FaHeart, FaPhoneAlt } from "react-icons/fa";
 import UseCards from "../../Hooks/UseCards";
+import UsePagination from "../../Hooks/UsePagination";
 
 
 const Favorites = () => {
-
     const { isLikedCard, navToCard, getData, likeUnlikeCard, user, searchFavoriteCards } = UseCards()
+    const { onPageChange, currentCards, totalPages, currentPage } = UsePagination(searchFavoriteCards);
 
     useEffect(() => {
         getData();
@@ -22,17 +23,19 @@ const Favorites = () => {
 
             <div className="flex flex-col items-center justify-start gap-2 dark:bg-gray-800">
 
-                <div className="flex flex-wrap items-center gap-10 p-5 m-auto max-md:gap-3 md:w-3/5 max-md:flex-col">
-                    {searchFavoriteCards()!.map((item: TCard) => {
+                <div className="flex flex-wrap items-center gap-10 p-5 m-auto max-md:gap-3 md:w-4/5 max-md:flex-col">
+                    {currentCards.map((item: TCard) => {
                         return (
                             <Card key={item._id} className="m-auto bg-gray-200 dark:text-white dark:bg-gray-700 h-[500px] w-[300px]">
-                                <img src={item.image.url} alt={item.image.alt} className="object-fill h-[200px]"
+                                <img className="object-fill w-[250px] h-[200px]" src={item.image.url} alt={item.image.alt}
                                     onClick={() => navToCard(item._id)}
                                 />
 
                                 <h1>{item.title}</h1>
                                 <h3>{item.subtitle}</h3>
-                                <p>{item.description}</p>
+                                <div className="max-h-[100px] h-[100px] overflow-hidden">
+                                    <p>{item.description}</p>
+                                </div>
                                 <hr />
                                 {user && user.user &&
                                     <div className="flex">
@@ -53,6 +56,12 @@ const Favorites = () => {
                         )
                     })}
                 </div>
+                <Pagination className="mb-5"
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={onPageChange}
+                    showIcons
+                />
             </div >
         </>
     );

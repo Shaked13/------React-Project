@@ -9,7 +9,7 @@ import UsePagination from "../../Hooks/UsePagination";
 
 const Home = () => {
     const { isLikedCard, navToCard, getData, likeUnlikeCard, user, searchCards } = UseCards();
-    const { onPageChange, currentCards, totalPages, currentPage } = UsePagination(searchCards)
+    const { onPageChange, currentCards, totalPages, currentPage } = UsePagination(searchCards);
 
     useEffect(() => {
         getData();
@@ -19,7 +19,7 @@ const Home = () => {
         <>
             <section className="flex flex-col items-center bg-gray-200 dark:bg-gray-700">
                 <h1 style={{ fontSize: "3rem" }}> Cards Page </h1>
-                <p style={{ fontSize: "1.5rem" }} className="items-center" >Here you can find business cards from all categories</p>
+                <p style={{ fontSize: "1.5rem" }} className="items-center">Here you can find business cards from all categories</p>
             </section>
 
             <div className="flex flex-col items-center justify-start gap-2 dark:bg-gray-800">
