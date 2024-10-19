@@ -1,14 +1,33 @@
-
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { TUser } from "../../Types/TUser";
+import { TRootState } from "../../Store/BigPie";
+import { TUserState } from "../../Store/UserSlice";
 
-type TRouteGuardProps = {
+
+type TRouteGuard = {
     children: React.ReactNode,
-    user: TUser;
-}
+    bizOnly?: boolean,
+    adminOnly?: boolean,
+};
 
-const RouteGuard = (props: TRouteGuardProps) => {
-    return props.user ? <>{props.children}</> : <Navigate to={"/"} />;
+const RouteGuard = (props: TRouteGuard) => {
+    const { children, bizOnly, adminOnly } = props;
+    const userState = useSelector((state: TRootState) => state.UserSlice) as TUserState;
+    const user = userState.user!;
+
+    if (!userState.isLoggedIn) {
+        return <Navigate to="/login" />
+    };
+
+    if (bizOnly && !user.isBusiness) {
+        return <Navigate to="/" />
+    };
+
+    if (adminOnly && !user.isAdmin) {
+        return <Navigate to="/" />
+    };
+
+    return <>{children}</>;
 };
 
 export default RouteGuard;

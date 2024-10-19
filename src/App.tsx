@@ -8,18 +8,19 @@ import Footer from "./Components/Layout/Footer/Footer";
 import Profile from "./Pages/Profile/Profile";
 import RouteGuard from "./Components/Shared/RouteGuard";
 import MyCards from "./Pages/MyCards/MyCards";
-import { useSelector } from "react-redux";
-import { TRootState } from "./Store/BigPie";
+// import { useSelector } from "react-redux";
+// import { TRootState } from "./Store/BigPie";
 import Favorites from "./Pages/Favorites/Favorites";
 import Home from "./Pages/Home/Home";
 import CardDetails from "./Pages/CardDetails/CardDetails";
 import CreateCard from "./Pages/CreateCards/CreateCards";
 import EditCards from "./Pages/EditCards/EditCards";
 import EditProfile from "./Pages/EditProfile/EditProfile";
+import Crm from "./Pages/Admin/Crm";
 
 
 function App() {
-  const user = useSelector((state: TRootState) => state.UserSlice.user)
+  // const user = useSelector((state: TRootState) => state.UserSlice.user)
   return (
     <>
       <Header />
@@ -39,7 +40,7 @@ function App() {
         <Route
           path="/profile"
           element={
-            <RouteGuard user={user!}>
+            <RouteGuard>
               <Profile />
             </RouteGuard>
           }
@@ -48,16 +49,23 @@ function App() {
         <Route
           path="/favorites"
           element={
-            <RouteGuard user={user!}>
+            <RouteGuard >
               <Favorites />
             </RouteGuard>
           }
         />
 
+        <Route path="/crm"
+          element={
+            <RouteGuard adminOnly>
+              <Crm />
+            </RouteGuard>
+          } />
+
         <Route
           path="/mycards"
           element={
-            <RouteGuard user={user!}>
+            <RouteGuard bizOnly>
               <MyCards />
             </RouteGuard>
           }
@@ -66,7 +74,7 @@ function App() {
         <Route
           path="/createcard"
           element={
-            <RouteGuard user={user!}>
+            <RouteGuard bizOnly>
               <CreateCard />
             </RouteGuard>
           }

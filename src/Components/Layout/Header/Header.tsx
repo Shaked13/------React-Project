@@ -17,6 +17,13 @@ const Header = () => {
     const nav = useNavigate();
     const location = useLocation().pathname;
 
+    const AdminProfile = () => {
+        if (user?.isAdmin) {
+            nav("/profile");
+        } else {
+            nav("/*");
+        };
+    };
 
     const SignOut = () => {
         const backgroundColor = document.documentElement.classList.contains('dark') ? '#333333' : '#ffffff';
@@ -140,6 +147,36 @@ const Header = () => {
                     Profile
                 </Navbar.Link>
                 )}
+
+                {/*-------------------------profile------------------------*/}
+
+                {user && !user.isAdmin && (
+                    <Navbar.Link
+                        as={Link}
+                        href="/profile"
+                        to="/profile"
+                        active={location === "/profile"}>
+                        Profile
+                    </Navbar.Link>
+                )}
+
+                {/*-------------------------admin's profile------------------------*/}
+
+                <Navbar.Brand onClick={AdminProfile}>
+                    <img src="/admin.jpg" alt="admin's profile rabbit icon"
+                        style={{ width: "40px", borderRadius: "50%", marginRight: "10px" }}
+                        className="cursor-pointer" />
+                </Navbar.Brand>
+
+                {/*-------------------------CRM------------------------*/}
+
+                {user?.isAdmin && (<Navbar.Link
+                    as={Link}
+                    href="/crm"
+                    to="/crm"
+                    active={location === "/crm"}>
+                    CRM
+                </Navbar.Link>)}
 
                 {user && (<Navbar.Link
                     as={Link}
