@@ -31,6 +31,16 @@ const Crm = () => {
             axios.defaults.headers.common['x-auth-token'] = localStorage.getItem("token");
             const res = await axios.get("https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users");
             setUsers(res.data);
+            Swal.fire({
+                position: "top-end",
+                toast: true,
+                background: '#6d6d6d',
+                color: '#ffffff',
+                icon: "success",
+                title: "success",
+                showConfirmButton: false,
+                timer: 2000
+            });
         } catch (error) {
             Swal.fire({
                 title: "failed!",
@@ -61,9 +71,6 @@ const Crm = () => {
             axios.defaults.headers.common['x-auth-token'] = localStorage.getItem("token");
             const res = await axios.patch("https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users/" + user._id,
                 { isBusiness: !user.isBusiness });
-
-            console.log(res);
-            console.log(user);
 
             if (res.status === 200) {
                 const userIndex = users.indexOf(user);
@@ -136,26 +143,24 @@ const Crm = () => {
         };
     };
 
-
-
     useEffect(() => {
         getAllUsers();
     }, []);
 
     return (
         <>
-            <div className="min-h-screen dark:bg-gray-800 bg-gradient-to-r from-pink-100 to-pink-200 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800">
+            <div className="min-h-screen bg-white dark:bg-gray-800">
 
                 <section className="flex flex-col items-center bg-gray-200 dark:bg-gray-700">
                     <h1 style={{ fontSize: "3rem" }}> Client Relations/Content Management </h1>
                 </section>
 
 
-                <main className="flex justify-center gap-3 dark:bg-gray-800 bg-gradient-to-r from-pink-100 to-pink-200 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800">
+                <main className="flex justify-center gap-3 bg-white dark:bg-gray-800">
 
                     <div className="mt-20 overflow-x-auto text-center max-w-[90vw]">
                         <table className="w-full table-auto">
-                            <thead className="bg-pink-200 dark:bg-gray-600">
+                            <thead className="bg-gray-500 dark:bg-gray-600">
                                 <tr>
                                     <th className="px-4 py-2 text-gray-800 dark:text-white">Name</th>
                                     <th className="px-4 py-2 text-gray-800 dark:text-white">Email</th>
@@ -167,7 +172,7 @@ const Crm = () => {
                                 {currentCards.map((item: TUser) => (
                                     <tr
                                         key={item._id}
-                                        className="divide-y cursor-pointer odd:bg-pink-300 even:bg-pink-400 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-pink-500 dark:hover:bg-gray-600"
+                                        className="divide-y cursor-pointer odd:bg-gray-300 even:bg-gray-400 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-600"
                                         onClick={() => setSelectedUser(item)} >
                                         <td className="px-4 py-2 text-gray-800 border dark:text-white">
                                             {item.name.first + " " + item.name.middle + " " + item.name.last}
@@ -185,21 +190,20 @@ const Crm = () => {
 
 
                 </main>
-                <img src="/banner.webp" alt="banner pic with flowers" className="m-auto" />
+                <img src="/banner.jpg" alt="banner pic" className="m-auto" />
 
 
                 {/*-------------------user details----------------*/}
                 {selectedUser && (
-                    <div className="flex flex-col items-center dark:bg-gray-800 bg-gradient-to-r from-pink-100 to-pink-200 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800">
+                    <div className="flex flex-col items-center bg-white dark:bg-gray-800">
 
                         <h1 className="mt-8 mb-1 text-xl font-medium text-gray-900 dark:text-white"> More Details </h1>
                         <Card key={selectedUser?._id}
-                            className=" bg-gradient-to-r from-pink-200 to-pink-300
+                            className=" bg-gray-200
                                 border-black
                                 h-[350px] w-[300px]
                                 text-center
                                 dark:border-black
-                                dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-800
                                 dark:text-white
                                 dark:ring-2
                                 ring-slate-600

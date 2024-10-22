@@ -3,14 +3,36 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TCard } from "../../Types/TCard";
 import { Card } from "flowbite-react";
+import Swal from "sweetalert2";
 
 const CardDetails = () => {
     const [card, setCard] = useState<TCard>();
     const { id } = useParams<{ id: string }>();
 
     const getData = async () => {
-        const res = await axios.get('https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards/' + id);
-        setCard(res.data);
+        try {
+            const res = await axios.get('https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards/' + id);
+            setCard(res.data);
+            Swal.fire({
+                position: "top-end",
+                toast: true,
+                background: '#6d6d6d',
+                color: '#ffffff',
+                icon: "success",
+                title: "success",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        } catch (error) {
+            Swal.fire({
+                title: "failed!",
+                icon: "error",
+                timerProgressBar: true,
+                timer: 2000,
+                toast: true,
+                showCloseButton: true
+            });
+        }
     }
 
     useEffect(() => {
@@ -36,7 +58,6 @@ const CardDetails = () => {
                         <h1 className="dark:text-white max-md-[250px]">Description: {card && card!.description}</h1>
                         <h1 className="dark:text-white">
                             Address: {card?.address.country + ", " + card?.address.city + ", " + card?.address.street}</h1>
-
                         <br />
                     </Card>
                 </div>

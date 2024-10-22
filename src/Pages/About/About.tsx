@@ -17,6 +17,9 @@ const About = () => {
                     <h1 className="mt-5 mb-4 text-3xl text-center">  Browse </h1>
                     <p className="mb-8 text-xl text-center ">Explore a wide range of business cards within our app. Find inspiration, discover new contacts, and connect with professionals from various industries. </p>
 
+                    <h1 className="mt-5 mb-4 text-3xl text-center">  CRM For Admins </h1>
+                    <p className="mb-8 text-xl text-center "> Our comprehensive CRM features enable admins to manage users data, and maintain valuable business relationships. Stay on top of your networking game with advanced analytics and reporting tools.</p>
+
                 </div>
             </div>
         </>

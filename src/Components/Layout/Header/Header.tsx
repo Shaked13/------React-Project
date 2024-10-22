@@ -44,10 +44,6 @@ const Header = () => {
                 localStorage.removeItem("token");
 
                 dispatch(userActions.Signout());
-
-                // איפוס headers של axios
-                // delete axios.defaults.headers.common['x-auth-token'];
-
                 Swal.fire({
                     showConfirmButton: false,
                     title: "You Signed Out!",
@@ -58,7 +54,6 @@ const Header = () => {
                     timer: 2000,
                     showCloseButton: true
                 });
-                console.log(document.documentElement.classList.contains('dark'));
             }
             nav("/");
         });
@@ -134,17 +129,6 @@ const Header = () => {
                     active={location === "/register"}
                 >
                     Register
-                </Navbar.Link>
-                )}
-
-                {user && (<Navbar.Link
-                    as={Link}
-                    to={"/profile"}
-                    href="/profile"
-                    className="text-white"
-                    active={location === "/profile"}
-                >
-                    Profile
                 </Navbar.Link>
                 )}
 

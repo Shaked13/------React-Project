@@ -4,8 +4,6 @@ import { Card, Pagination } from "flowbite-react";
 import { FaHeart, FaPhoneAlt } from "react-icons/fa";
 import UseCards from "../../Hooks/UseCards";
 import UsePagination from "../../Hooks/UsePagination";
-// import { LazyLoadImage } from 'react-lazy-load-image-component';
-
 
 const Home = () => {
     const { isLikedCard, navToCard, getData, likeUnlikeCard, user, searchCards } = UseCards();
@@ -57,12 +55,14 @@ const Home = () => {
                         )
                     })}
                 </div>
-                <Pagination className="mb-5"
+                <Pagination
+                    className="mb-5 pagination-container"
                     currentPage={currentPage}
                     totalPages={totalPages}
                     onPageChange={onPageChange}
                     showIcons
                 />
+
             </div>
         </>
     );

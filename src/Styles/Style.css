@@ -1,0 +1,26 @@
+.pagination-container {
+    display: flex;
+    /* תצוגת פלקס */
+    justify-content: center;
+    /* ממרכז את הכפתורים */
+}
+
+@media (max-width: 768px) {
+    .pagination-container .pagination-list .pagination-number {
+        display: none;
+        /* מחביא את המספרים בנייד */
+    }
+
+    .pagination-container .pagination-prev,
+    .pagination-container .pagination-next {
+        display: inline-block;
+        /* משאיר רק את כפתורי "הבא" ו"הקודם" */
+    }
+}
+
+@media (min-width: 769px) {
+    .pagination-container .pagination-list {
+        display: flex;
+        /* מציג את המספרים במחשבים */
+    }
+}

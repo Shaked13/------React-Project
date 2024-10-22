@@ -50,8 +50,13 @@ const CreateCards = () => {
             });
             nav("/mycards");
         } catch (error) {
-            // console.log(error);
-            // toast.error("business card creation failed")
+            Swal.fire({
+                title: "failed!",
+                icon: "error",
+                timerProgressBar: true,
+                timer: 2000,
+                showCloseButton: true
+            });
         };
     };
 

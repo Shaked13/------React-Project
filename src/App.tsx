@@ -8,8 +8,6 @@ import Footer from "./Components/Layout/Footer/Footer";
 import Profile from "./Pages/Profile/Profile";
 import RouteGuard from "./Components/Shared/RouteGuard";
 import MyCards from "./Pages/MyCards/MyCards";
-// import { useSelector } from "react-redux";
-// import { TRootState } from "./Store/BigPie";
 import Favorites from "./Pages/Favorites/Favorites";
 import Home from "./Pages/Home/Home";
 import CardDetails from "./Pages/CardDetails/CardDetails";
@@ -20,7 +18,6 @@ import Crm from "./Pages/Admin/Crm";
 
 
 function App() {
-  // const user = useSelector((state: TRootState) => state.UserSlice.user)
   return (
     <>
       <Header />
