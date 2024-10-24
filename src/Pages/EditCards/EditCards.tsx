@@ -21,6 +21,14 @@ const EditCards = () => {
             const res = await axios.get("https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards/" + id);
             setCard(res.data);
         } catch (error) {
+            Swal.fire({
+                title: "failed!",
+                icon: "error",
+                timerProgressBar: true,
+                timer: 2000,
+                toast: true,
+                showCloseButton: true
+            });
         };
     };
 
@@ -67,21 +75,16 @@ const EditCards = () => {
             });
             nav("/mycards");
         } catch (error) {
-            // toast.error("changes updated failed");
+            Swal.fire({
+                title: "failed!",
+                icon: "error",
+                timerProgressBar: true,
+                timer: 2000,
+                toast: true,
+                showCloseButton: true
+            });
         };
     };
-
-    // const onSubmit = async (form: typeof initialCardData) => {
-    //     try {
-    //         axios.defaults.headers.common['x-auth-token'] = localStorage.getItem("token");
-    //         const res = await axios.put("https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards/" + id, form);
-    //         console.log(res);
-    //         nav("/mycards");
-    //         toast.success("changes updated successfully");
-    //     } catch (error) {
-    //         toast.error("changes updated failed");
-    //     };
-    // };
 
     useEffect(() => {
         if (card) {

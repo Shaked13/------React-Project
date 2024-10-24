@@ -19,7 +19,6 @@ const EditProfile = () => {
             axios.defaults.headers.common['x-auth-token'] = localStorage.getItem("token");
             const res = await axios.get("https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users/" + id);
             setEditUser(res.data);
-            console.log('Fetched User Data:', res.data);
         } catch (error) {
             Swal.fire({
                 title: "failed!",
@@ -62,9 +61,7 @@ const EditProfile = () => {
     const onSubmit = async (form: typeof initialUserData) => {
         try {
             axios.defaults.headers.common['x-auth-token'] = localStorage.getItem("token");
-            const response = await axios.put("https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users/" + id, form);
-
-            console.log('Updated User Data:', response.data);
+            await axios.put("https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users/" + id, form);
 
             Swal.fire({
                 title: "Done!",
@@ -79,7 +76,6 @@ const EditProfile = () => {
             });
             nav("/profile");
         } catch (error) {
-            console.error('Failed to update user:', error);
             Swal.fire({
                 title: "failed!",
                 icon: "error",

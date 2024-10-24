@@ -15,8 +15,8 @@ const RouteGuard = (props: TRouteGuard) => {
     const userState = useSelector((state: TRootState) => state.UserSlice) as TUserState;
     const user = userState.user!;
 
-    if (!userState.isLoggedIn) {
-        return <Navigate to="/login" />
+    if (!user && !userState.isLoggedIn) {
+        return <Navigate to="/signin" />
     };
 
     if (bizOnly && !user.isBusiness) {

@@ -41,9 +41,7 @@ const Register = () => {
 
     const submit = async (form: any) => {
         try {
-            const res = await axios.post('https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users', form)
-            console.log(res.data);
-            console.log(form);
+            await axios.post('https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users', form)
             Swal.fire({
                 background: '#6d6d6d',
                 color: '#ffffff',
@@ -54,12 +52,16 @@ const Register = () => {
             });
             nav("/signin");
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: "failed!",
+                icon: "error",
+                timerProgressBar: true,
+                timer: 2000,
+                toast: true,
+                showCloseButton: true
+            });
         };
     }
-
-    console.log(errors);
-
 
     return (
         <>

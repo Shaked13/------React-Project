@@ -34,16 +34,6 @@ const UseCards = () => {
         try {
             const res = await axios.get('https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards');
             setCards(res.data);
-            Swal.fire({
-                position: "top-end",
-                toast: true,
-                background: '#6d6d6d',
-                color: '#ffffff',
-                icon: "success",
-                title: "success",
-                showConfirmButton: false,
-                timer: 2000
-            });
         } catch (error) {
             Swal.fire({
                 title: "failed!",
@@ -61,16 +51,6 @@ const UseCards = () => {
             axios.defaults.headers.common["x-auth-token"] = localStorage.getItem("token");
             const res = await axios.get('https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards/my-cards');
             setCards(res.data);
-            Swal.fire({
-                position: "top-end",
-                toast: true,
-                background: '#6d6d6d',
-                color: '#ffffff',
-                icon: "success",
-                title: "success",
-                showConfirmButton: false,
-                timer: 2000
-            });
         } catch (error) {
             Swal.fire({
                 title: "failed!",

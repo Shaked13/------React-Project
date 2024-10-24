@@ -54,7 +54,14 @@ function SignIn() {
             });
             nav("/");
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: "failed!",
+                icon: "error",
+                timerProgressBar: true,
+                timer: 2000,
+                toast: true,
+                showCloseButton: true
+            });
         }
     };
 

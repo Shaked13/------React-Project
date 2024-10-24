@@ -13,16 +13,6 @@ const CardDetails = () => {
         try {
             const res = await axios.get('https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards/' + id);
             setCard(res.data);
-            Swal.fire({
-                position: "top-end",
-                toast: true,
-                background: '#6d6d6d',
-                color: '#ffffff',
-                icon: "success",
-                title: "success",
-                showConfirmButton: false,
-                timer: 2000
-            });
         } catch (error) {
             Swal.fire({
                 title: "failed!",

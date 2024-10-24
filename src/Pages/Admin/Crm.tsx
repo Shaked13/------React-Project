@@ -9,6 +9,21 @@ import { TRootState } from "../../Store/BigPie";
 
 const Crm = () => {
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+
     const [users, setUsers] = useState<TUser[]>([]);
 
     const [selectedUser, setSelectedUser] = useState<TUser | null>(null);
@@ -26,21 +41,10 @@ const Crm = () => {
     const { onPageChange, currentCards, totalPages, currentPage } = UsePagination(searchCards);
 
     const getAllUsers = async () => {
-
         try {
             axios.defaults.headers.common['x-auth-token'] = localStorage.getItem("token");
             const res = await axios.get("https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users");
             setUsers(res.data);
-            Swal.fire({
-                position: "top-end",
-                toast: true,
-                background: '#6d6d6d',
-                color: '#ffffff',
-                icon: "success",
-                title: "success",
-                showConfirmButton: false,
-                timer: 2000
-            });
         } catch (error) {
             Swal.fire({
                 title: "failed!",
@@ -232,12 +236,36 @@ const Crm = () => {
                         </Card>
                     </div>
                 )}
-                <Pagination className="m-auto w-fit"
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={onPageChange}
-                    showIcons
-                />
+                <div className="flex justify-center mt-4">
+                    {isMobile ? (
+                        // For mobile: only show previous and next buttons
+                        <div className="flex">
+                            <Button
+                                color="dark"
+                                onClick={() => onPageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                className="mr-2"
+                            >
+                                Previous
+                            </Button>
+                            <Button
+                                color="dark"
+                                onClick={() => onPageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </Button>
+                        </div>
+                    ) : (
+                        // For desktop: show full pagination
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={onPageChange}
+                            showIcons
+                        />
+                    )}
+                </div>
             </div>
         </>
     )
