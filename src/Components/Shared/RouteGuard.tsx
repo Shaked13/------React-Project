@@ -15,7 +15,7 @@ const RouteGuard = (props: TRouteGuard) => {
     const userState = useSelector((state: TRootState) => state.UserSlice) as TUserState;
     const user = userState.user!;
 
-    if (!user && !userState.isLoggedIn) {
+    if (!userState.isLoggedIn) {
         return <Navigate to="/signin" />
     };
 

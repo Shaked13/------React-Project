@@ -1,27 +1,72 @@
+// import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// import { TUser } from "../Types/TUser";
+
+// const initialState = {
+//     isLoggedIn: false,
+//     user: null as TUser | null
+// };
+
+// const userSlice = createSlice({
+//     name: "user",
+//     initialState,
+//     reducers: {
+//         login: (state: TUserState, date: PayloadAction<TUser>) => {
+//             state.isLoggedIn = true;
+//             state.user = date.payload;
+//         },
+//         Signout: (state: TUserState) => {
+//             state.isLoggedIn = false;
+//             state.user = null;
+//         },
+//     },
+// });
+
+// export const userActions = userSlice.actions;
+// export default userSlice.reducer;
+// export type TUserState = typeof initialState
+// export type TUserPayload = { userName: string };
+
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TUser } from "../Types/TUser";
 
 const initialState = {
     isLoggedIn: false,
-    user: null as TUser | null
+    user: null as TUser | null,
+};
+
+// Load user from localStorage on init (if exists)
+const loadUserFromLocalStorage = () => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+        return {
+            isLoggedIn: true,
+            user: JSON.parse(storedUser),
+        };
+    }
+    return initialState;
 };
 
 const userSlice = createSlice({
     name: "user",
-    initialState,
+    initialState: loadUserFromLocalStorage(),  // Load the user state on app start
     reducers: {
-        login: (state: TUserState, date: PayloadAction<TUser>) => {
+        login: (state: TUserState, action: PayloadAction<TUser>) => {
             state.isLoggedIn = true;
-            state.user = date.payload;
+            state.user = action.payload;
+            // Save user to localStorage
+            localStorage.setItem('user', JSON.stringify(action.payload));
         },
         Signout: (state: TUserState) => {
             state.isLoggedIn = false;
             state.user = null;
+            // Remove user from localStorage
+            localStorage.removeItem('user');
         },
     },
 });
 
 export const userActions = userSlice.actions;
 export default userSlice.reducer;
-export type TUserState = typeof initialState
+export type TUserState = typeof initialState;
 export type TUserPayload = { userName: string };
