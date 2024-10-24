@@ -82,7 +82,7 @@ const Header = () => {
     return (
         <Navbar fluid className="bg-slate-800">
             <Navbar.Brand as={Link} href="/" to="/" className="mr-48 max-md:m-auto">
-                <img src="/web.images.jpg" alt="" style={{ width: "50px", height: "40px", borderRadius: "50%", marginRight: "10px" }} />
+                <img src="/web.images.jpg" alt="admin's pic" style={{ width: "50px", height: "40px", borderRadius: "50%", marginRight: "10px" }} />
                 <span className="self-center text-xl font-semibold text-white whitespace-nowrap">
                     Shaked
                 </span>
