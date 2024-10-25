@@ -3,9 +3,9 @@ import { TUser } from "../../Types/TUser";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Card, Button, Pagination } from "flowbite-react";
-import UsePagination from "../../Hooks/UsePagination";
 import { useSelector } from "react-redux";
 import { TRootState } from "../../Store/BigPie";
+import UsePaginationCrm from "../../Hooks/UsePaginationCrm";
 
 const Crm = () => {
 
@@ -38,7 +38,7 @@ const Crm = () => {
             item.name.last.includes(searchWord)
         );
     };
-    const { onPageChange, currentCards, totalPages, currentPage } = UsePagination(searchCards);
+    const { onPageChange, currentCards, totalPages, currentPage } = UsePaginationCrm(searchCards);
 
     const getAllUsers = async () => {
         try {
@@ -192,10 +192,8 @@ const Crm = () => {
                         </table>
                     </div>
 
-
                 </main>
-                <img src="/banner.jpg" alt="banner pic" className="m-auto" />
-
+                <img src="/banner.jpg" alt="banner pic" className="m-auto mt-5" />
 
                 {/*-------------------user details----------------*/}
                 {selectedUser && (
@@ -258,7 +256,7 @@ const Crm = () => {
                         </div>
                     ) : (
                         // For desktop: show full pagination
-                        <Pagination
+                        <Pagination className="mb-5"
                             currentPage={currentPage}
                             totalPages={totalPages}
                             onPageChange={onPageChange}

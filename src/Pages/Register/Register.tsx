@@ -128,7 +128,6 @@ const Register = () => {
                     <span className="text-sm text-red-500">{errors.password?.message}</span>
 
                     <FloatingLabel
-                        helperText="* requierd"
                         type="text"
                         variant="standard"
                         label="Image Url"
@@ -138,7 +137,6 @@ const Register = () => {
                     <span className="text-sm text-red-500">{errors.image?.url?.message}</span>
 
                     <FloatingLabel
-                        helperText="* requierd"
                         type="text"
                         variant="standard"
                         label="Image Alt"

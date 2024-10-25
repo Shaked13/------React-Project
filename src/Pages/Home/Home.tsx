@@ -91,15 +91,15 @@ const Home = () => {
                         </div>
                     ) : (
                         // For desktop: show full pagination
-                        <Pagination
+                        <Pagination className="mb-5"
                             currentPage={currentPage}
                             totalPages={totalPages}
                             onPageChange={onPageChange}
                             showIcons
                         />
+
                     )}
                 </div>
-
             </div>
         </>
     );
