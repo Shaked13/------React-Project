@@ -139,6 +139,7 @@ const Header = () => {
                         as={Link}
                         href="/profile"
                         to="/profile"
+                        className="text-white "
                         active={location === "/profile"}>
                         Profile
                     </Navbar.Link>
@@ -158,6 +159,7 @@ const Header = () => {
                     as={Link}
                     href="/crm"
                     to="/crm"
+                    className="text-white "
                     active={location === "/crm"}>
                     CRM
                 </Navbar.Link>)}
