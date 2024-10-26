@@ -67,7 +67,7 @@ function SignIn() {
 
     return (
         <>
-            <div className="flex items-center justify-center gap-2 dark:bg-gray-700">
+            <div className="flex items-center justify-center min-h-screen gap-2 dark:bg-gray-700">
 
                 <form className="flex flex-col gap-4 p-4 m-auto mb-48 rounded-lg shadow-lg justify-center w-[400px] mt-[100px] dark:bg-gray-800" onSubmit={handleSubmit(submit)} >
 
