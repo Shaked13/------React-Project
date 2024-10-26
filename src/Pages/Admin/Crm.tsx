@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { TUser } from "../../Types/TUser";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Card, Button, Pagination } from "flowbite-react";
+import { Card, Button, Pagination, Spinner } from "flowbite-react";
 import { useSelector } from "react-redux";
 import { TRootState } from "../../Store/BigPie";
 import UsePaginationCrm from "../../Hooks/UsePaginationCrm";
@@ -10,6 +10,8 @@ import UsePaginationCrm from "../../Hooks/UsePaginationCrm";
 const Crm = () => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    const [loading, setLoading] = useState(true); //state for the loading spinner
 
     useEffect(() => {
         const handleResize = () => {
@@ -42,6 +44,7 @@ const Crm = () => {
 
     const getAllUsers = async () => {
         try {
+            setLoading(true); //start loading
             axios.defaults.headers.common['x-auth-token'] = localStorage.getItem("token");
             const res = await axios.get("https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users");
             setUsers(res.data);
@@ -53,6 +56,8 @@ const Crm = () => {
                 timer: 2000,
                 showCloseButton: true
             });
+        } finally {
+            setLoading(false);
         };
     };
 
@@ -163,33 +168,40 @@ const Crm = () => {
                 <main className="flex justify-center gap-3 bg-white dark:bg-gray-800">
 
                     <div className="mt-20 overflow-x-auto text-center max-w-[90vw]">
-                        <table className="w-full table-auto">
-                            <thead className="bg-gray-500 dark:bg-gray-600">
-                                <tr>
-                                    <th className="px-4 py-2 text-gray-800 dark:text-white">Name</th>
-                                    <th className="px-4 py-2 text-gray-800 dark:text-white">Email</th>
-                                    <th className="px-4 py-2 text-gray-800 dark:text-white">Phone</th>
-                                    <th className="px-4 py-2 text-gray-800 dark:text-white">Authorization Level</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentCards.map((item: TUser) => (
-                                    <tr
-                                        key={item._id}
-                                        className="divide-y cursor-pointer odd:bg-gray-300 even:bg-gray-400 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-600"
-                                        onClick={() => setSelectedUser(item)} >
-                                        <td className="px-4 py-2 text-gray-800 border dark:text-white">
-                                            {item.name.first + " " + item.name.middle + " " + item.name.last}
-                                        </td>
-                                        <td className="px-4 py-2 text-gray-800 border dark:text-white">{item.email}</td>
-                                        <td className="px-4 py-2 text-gray-800 border dark:text-white">{item.phone}</td>
-                                        <td className="px-4 py-2 text-gray-800 border dark:text-white">
-                                            {item.isAdmin ? "Admin" : item.isBusiness ? "Business" : "Personal"}
-                                        </td>
+                        {loading ? (
+                            <div className="flex flex-col items-center justify-center min-h-screen">
+                                <Spinner size="xl" className="mb-4" />
+                                <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">Loading...</p>
+                            </div>
+                        ) : (
+                            <table className="w-full table-auto">
+                                <thead className="bg-gray-500 dark:bg-gray-600">
+                                    <tr>
+                                        <th className="px-4 py-2 text-gray-800 dark:text-white">Name</th>
+                                        <th className="px-4 py-2 text-gray-800 dark:text-white">Email</th>
+                                        <th className="px-4 py-2 text-gray-800 dark:text-white">Phone</th>
+                                        <th className="px-4 py-2 text-gray-800 dark:text-white">Authorization Level</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {currentCards.map((item: TUser) => (
+                                        <tr
+                                            key={item._id}
+                                            className="divide-y cursor-pointer odd:bg-gray-300 even:bg-gray-400 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-600"
+                                            onClick={() => setSelectedUser(item)} >
+                                            <td className="px-4 py-2 text-gray-800 border dark:text-white">
+                                                {item.name.first + " " + item.name.middle + " " + item.name.last}
+                                            </td>
+                                            <td className="px-4 py-2 text-gray-800 border dark:text-white">{item.email}</td>
+                                            <td className="px-4 py-2 text-gray-800 border dark:text-white">{item.phone}</td>
+                                            <td className="px-4 py-2 text-gray-800 border dark:text-white">
+                                                {item.isAdmin ? "Admin" : item.isBusiness ? "Business" : "Personal"}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
                     </div>
 
                 </main>
