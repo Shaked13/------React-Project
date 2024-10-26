@@ -65,8 +65,10 @@ const Register = () => {
 
     return (
         <>
-            <main className="dark:bg-gray-700">
-                <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-4 p-4 rounded-lg shadow-lg m-auto justify-center w-[400px] bg-gray-200 dark:bg-gray-800">
+            <div className="flex items-center justify-center gap-2 dark:bg-gray-700">
+
+                <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-4 p-4 rounded-lg shadow-lg m-auto justify-center w-[400px] bg-gray-200 dark:bg-gray-800 mt-20 mb-20">
+
                     <h1 className="text-2xl font-bold dark:text-white">Register</h1>
                     <FloatingLabel
                         helperText="* requierd"
@@ -216,7 +218,7 @@ const Register = () => {
                     </Button>
 
                 </form>
-            </main>
+            </div>
         </>
     )
 }
