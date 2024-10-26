@@ -32,15 +32,31 @@ const Crm = () => {
 
     const searchWord = useSelector((state: TRootState) => state.SearchSlice.search);
 
-    /* Filters the cards to include only those that match the search word. */
-    const searchCards = () => {
-        return users.filter((item: TUser) =>
-            item.name.first.includes(searchWord) ||
-            item.name.middle.includes(searchWord) ||
-            item.name.last.includes(searchWord)
-        );
+    // const searchUsers = () => {
+    //     return users.filter((item: TUser) =>
+    //         item.name.first.includes(searchWord) ||
+    //         item.name.middle.includes(searchWord) ||
+    //         item.name.last.includes(searchWord) ||
+    //         item.phone.includes(searchWord) ||
+    //         item.email.includes(searchWord)
+    //     );
+    // };
+
+    const searchUsers = () => {
+        const searchParts = searchWord.toLowerCase().split(" ");
+
+        return users.filter((item: TUser) => {
+            const fullName = `${item.name.first} ${item.name.middle} ${item.name.last}`.toLowerCase();
+
+            // Check if all parts of the searchWord are included in the fullNames
+            return searchParts.every((part) => fullName.includes(part)) ||
+                item.phone.includes(searchWord) ||
+                item.email.includes(searchWord);
+        });
     };
-    const { onPageChange, currentCards, totalPages, currentPage } = UsePaginationCrm(searchCards);
+
+
+    const { onPageChange, currentCards, totalPages, currentPage } = UsePaginationCrm(searchUsers);
 
     const getAllUsers = async () => {
         try {
@@ -187,7 +203,7 @@ const Crm = () => {
                                     {currentCards.map((item: TUser) => (
                                         <tr
                                             key={item._id}
-                                            className="divide-y cursor-pointer odd:bg-gray-300 even:bg-gray-400 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-600"
+                                            className="border divide-y cursor-pointer odd:bg-gray-300 even:bg-gray-400 odd:dark:bg-gray-800 even:dark:bg-gray-700 hover:bg-gray-500 dark:hover:bg-gray-600"
                                             onClick={() => setSelectedUser(item)} >
                                             <td className="px-4 py-2 text-gray-800 border dark:text-white">
                                                 {item.name.first + " " + item.name.middle + " " + item.name.last}

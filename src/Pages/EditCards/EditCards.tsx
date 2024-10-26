@@ -100,7 +100,7 @@ const EditCards = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 p-4 m-auto bg-gray-200 rounded-lg shadow-lg">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 p-4 m-auto bg-gray-200 rounded-lg shadow-lg dark:bg-gray-500">
                 <h1 className="text-2xl font-bold text-center text-gray-800"> Editing Card Details </h1>
 
                 <div className="flex gap-3 m-auto">
@@ -128,7 +128,7 @@ const EditCards = () => {
                 <div className="flex gap-3 m-auto">
                     <div className="flex flex-col">
 
-                        <label htmlFor="message" className="block mb-2 text-sm font-medium text-center text-gray-900 dark:text-green-500">
+                        <label htmlFor="message" className="block mb-2 text-sm font-medium text-center text-gray-900 dark:text-black">
                             Description</label>
 
                         <textarea id="message" defaultValue={card?.description} {...register("description")}
