@@ -97,7 +97,6 @@ const Home = () => {
                             onPageChange={onPageChange}
                             showIcons
                         />
-
                     )}
                 </div>
             </div>
