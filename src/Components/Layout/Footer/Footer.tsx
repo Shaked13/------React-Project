@@ -6,7 +6,7 @@ const Footer = () => {
             <div className="flex justify-center w-full">
                 <FbFooter.Copyright
                     href="#"
-                    by="Shaked"
+                    by="Shaked Haham"
                     year={2024}
                     className="text-black"
                 />
