@@ -17,8 +17,8 @@ const Header = () => {
     const nav = useNavigate();
     const location = useLocation().pathname;
 
-    const AdminProfile = () => {
-        if (user?.isAdmin) {
+    const Profile = () => {
+        if (user?.isAdmin || user.isBusiness || user) {
             nav("/profile");
         } else {
             nav("/*");
@@ -132,26 +132,15 @@ const Header = () => {
                 </Navbar.Link>
                 )}
 
-                {/*-------------------------profile------------------------*/}
+                {/*-------------------------Profile------------------------*/}
 
-                {user && !user.isAdmin && (
-                    <Navbar.Link
-                        as={Link}
-                        href="/profile"
-                        to="/profile"
-                        className="text-white "
-                        active={location === "/profile"}>
-                        Profile
-                    </Navbar.Link>
+                {(user && (user.isAdmin || user.isBusiness || !user.isAdmin && !user.isBusiness)) && (
+                    <Navbar.Brand onClick={Profile}>
+                        <img src="/admin.jpg" alt="profile icon"
+                            style={{ width: "40px", borderRadius: "50%", marginRight: "10px" }}
+                            className="cursor-pointer" />
+                    </Navbar.Brand>
                 )}
-
-                {/*-------------------------admin's profile------------------------*/}
-
-                <Navbar.Brand onClick={AdminProfile}>
-                    <img src="/admin.jpg" alt="admin's profile rabbit icon"
-                        style={{ width: "40px", borderRadius: "50%", marginRight: "10px" }}
-                        className="cursor-pointer" />
-                </Navbar.Brand>
 
                 {/*-------------------------CRM------------------------*/}
 
@@ -162,7 +151,8 @@ const Header = () => {
                     className="text-white "
                     active={location === "/crm"}>
                     CRM
-                </Navbar.Link>)}
+                </Navbar.Link>
+                )}
 
                 {user && (<Navbar.Link
                     as={Link}
