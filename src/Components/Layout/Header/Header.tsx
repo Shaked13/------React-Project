@@ -55,7 +55,6 @@ const Header = () => {
                     showCloseButton: true
                 });
             }
-            nav("/");
         });
     };
 
@@ -82,7 +81,7 @@ const Header = () => {
     return (
         <Navbar fluid className="bg-slate-800">
             <Navbar.Brand as={Link} href="/" to="/" className="mr-48 max-md:m-auto">
-                <img src="/web.images.jpg" alt="admin's pic" style={{ width: "50px", height: "40px", borderRadius: "50%", marginRight: "10px" }} />
+                <img src="/web.images.jpg" alt="admin pic" style={{ width: "50px", height: "40px", borderRadius: "50%", marginRight: "10px" }} />
                 <span className="self-center text-xl font-semibold text-white whitespace-nowrap">
                     Shaked
                 </span>
@@ -136,7 +135,7 @@ const Header = () => {
 
                 {(user && (user.isAdmin || user.isBusiness || !user.isAdmin && !user.isBusiness)) && (
                     <Navbar.Brand onClick={Profile}>
-                        <img src={user.image.url || '/images/default-profile.jpg'} // תמונת ברירת מחדל אם אין תמונה
+                        <img src={user.image.url}
                             style={{ width: "30px", height: "30px", borderRadius: "50%" }}
                             className="cursor-pointer"
                         />
