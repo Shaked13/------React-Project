@@ -136,9 +136,12 @@ const Header = () => {
 
                 {(user && (user.isAdmin || user.isBusiness || !user.isAdmin && !user.isBusiness)) && (
                     <Navbar.Brand onClick={Profile}>
-                        <img src="/admin.jpg" alt="profile icon"
-                            style={{ width: "40px", borderRadius: "50%", marginRight: "10px" }}
-                            className="cursor-pointer" />
+                        <img src={user.image.url || '/path/to/default/profile/image.jpg'} // תמונת ברירת מחדל אם אין תמונה
+
+                            // <img src="/admin.jpg" alt="profile icon"
+                            style={{ width: "30px", height: "30px", borderRadius: "50%" }}
+                            className="cursor-pointer"
+                        />
                     </Navbar.Brand>
                 )}
 
